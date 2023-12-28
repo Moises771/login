@@ -3,12 +3,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 /**root routes */
 
-
+const router = createBrowserRouter([
+  {
+    path : "/",
+    element : <div>Route Route</div>
+  },
+  {
+    path : "/register",
+    element : <div>Register</div>
+  },
+]);
 
 export default function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <main>
+      <RouterProvider router={router}></RouterProvider>
+    </main>
   );
 }
