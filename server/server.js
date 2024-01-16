@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import connect from "./Databse/conn.js";
+import connect from "./Database/conn.js";
+import router from "./Router/route.js";
 
 const app = express();
 
@@ -19,6 +20,9 @@ app.get("/", (req, res) => {
   res.status(201).json("Home GET request");
 });
 
+/**API routes */
+
+app.use('/api', router)
 /**Start Sever only with valid DB connection */
 
 connect()
