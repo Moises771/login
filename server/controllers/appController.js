@@ -3,24 +3,30 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ENV from "../config.js";
 
-/** POST: http://localhost:8080/api/register 
- * @param : {
-  "username" : "example123",
-  "password" : "admin123",
-  "email": "example@gmail.com",
-  "firstName" : "bill",
-  "lastName": "william",
-  
+/**Middlware to verify user */
+
+export async function verifyUser(req, res, next) {
+  try {
+    const { username } = req.method == "GET" ? req.query : req.body;
+
+    //check the user existance
+    let exist = await UserModel.findOne({ username });
+    if (!exist) return res.status(404).send({ error: "Can't find user" });
+    next();
+  } catch (error) {
+    return res.status(404).send({ error: "Authentication error" });
+  }
 }
-*/
 
-//Register only  has 3 values in my version: firstName, lastName, Email
+//  POST: http://localhost:8080/api/register
+//  * @param : {
+//   "username" : "example123",
+//   "password" : "admin123",
+//   "email": "example@gmail.com",
+//   "firstName" : "bill",
+//   "lastName": "william",
 
-// export async function register(req, res) {
-// res.send("register route")
 // }
-
-//__________________________________________________________________________
 
 export async function register(req, res) {
   try {
@@ -82,8 +88,6 @@ export async function register(req, res) {
   }
 }
 
-//__________________________________________________________________________
-
 /** POST: http://localhost:8080/api/login 
  * @param: {
   "username" : "example123",
@@ -134,7 +138,24 @@ export async function login(req, res) {
 /** GET: http://localhost:8080/api/user/example123 */
 
 export async function getUser(req, res) {
-  res.json("getUser route");
+  const { username } = req.params;
+
+  try {
+    if (!username) return res.status(500).send({ error: "Invalid username" });
+    UserModel.findOne({ username }, function (err, user) {
+      if (err) return res.status(500).send({ err });
+      if (!user) return res.status(501).send({ error: "Couldn't find user" });
+
+      //removed password from user
+      //return rest of data as JSON
+
+      const { password, ...rest } = Object.assign({}, user.toJSON());
+
+      return res.status(201).send(rest);
+    });
+  } catch (error) {
+    return res.status(404).send({ error: "Can't find user data" });
+  }
 }
 
 /** PUT: http://localhost:8080/api/updateuser 

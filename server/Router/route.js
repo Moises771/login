@@ -11,7 +11,7 @@ import * as controller from "../controllers/appController.js";
 router.route("/register").post(controller.register);
 // router.route("/registerMail").post(); //To send email
 router.route("/authenticate").post((req, res) => res.end()); //Authenticate user
-router.route("/login").post(controller.login); //Login in app
+router.route("/login").post(controller.verifyUser, controller.login); //Login in app
 
 /**GET methods */
 
