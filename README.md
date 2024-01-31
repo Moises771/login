@@ -1,6 +1,6 @@
 # login
 
-current progress: 2:37:00 Verify OTP
+current progress: 2:46:00 Test reset password
 
 Update user now works. Starting Generate OTP. Generate OTP now works. 
 
