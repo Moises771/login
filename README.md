@@ -1,6 +1,10 @@
 # login
 
-current progress: 2:46:00 Test reset password
+current progress: 3:02:00 starting Axios
+
+Send email now works
+
+Test reset password
 
 Update user now works. Starting Generate OTP. Generate OTP now works. 
 
