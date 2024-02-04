@@ -1,6 +1,8 @@
 # login
 
-current progress: 3:02:00 starting Axios
+current progress: 3:28:00 
+
+Axios requests done.
 
 Send email now works
 
